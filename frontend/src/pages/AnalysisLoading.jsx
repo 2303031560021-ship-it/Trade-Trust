@@ -37,7 +37,7 @@ function AnalysisLoading() {
           formData.append(key, formInputs[key]);
         });
 
-        const response = await fetch("http://localhost:5001/analyze", {
+        const response = await fetch("https://trade-trust.onrender.com/analyze", {
           method: "POST",
           body: formData
         });

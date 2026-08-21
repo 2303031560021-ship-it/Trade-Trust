@@ -34,7 +34,7 @@ const SavedResults = () => {
     const fetchResults = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5001/api/saved-results/${user.id}`
+          `https://trade-trust.onrender.com/api/saved-results/${user.id}`
         );
         const data = await res.json();
         setResults(Array.isArray(data) ? data : []);

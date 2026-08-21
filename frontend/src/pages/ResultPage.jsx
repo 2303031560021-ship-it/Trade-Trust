@@ -53,7 +53,7 @@ const imagePreview =
 };
 
   try {
-    const response = await fetch("http://localhost:5001/api/save-result", {
+    const response = await fetch("https://trade-trust.onrender.com/api/save-result", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
