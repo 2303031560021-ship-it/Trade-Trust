@@ -1,0 +1,181 @@
+/* ===== Saved Results Page ===== */
+.saved-results-page {
+  min-height: 100vh;
+  padding: 100px 60px 60px;
+  background: #0b0b0b;
+  color: #fff;
+}
+
+/* ===== Title ===== */
+.saved-results-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/* ===== Card list ===== */
+.saved-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===== Card ===== */
+.saved-result-card {
+  display: flex;
+  align-items: center;
+  background: #111111;
+  border: 1px solid #1f1f1f;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.saved-result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Image ===== */
+.saved-result-image-wrapper {
+  flex-shrink: 0;
+  width: 110px;
+  height: 110px;
+  margin-right: 24px;
+}
+
+.saved-result-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #1f1f1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Product Info ===== */
+.saved-result-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.saved-result-name {
+  font-size: 19px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.saved-result-detail {
+  font-size: 14px;
+  color: #b0b0b0;
+  margin: 3px 0;
+  line-height: 1.5;
+}
+
+/* ===== Decision + Actions ===== */
+.saved-result-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  margin-left: 24px;
+  flex-shrink: 0;
+}
+
+.saved-result-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.saved-result-view-btn {
+  background: #1f1f1f;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.saved-result-view-btn:hover {
+  background: #2a2a2a;
+}
+
+/* ===== Empty / Loading States ===== */
+.saved-results-empty,
+.saved-results-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #666;
+  font-size: 16px;
+}
+
+.saved-results-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #222;
+  border-top-color: #00ff9c;
+  border-radius: 50%;
+  animation: sr-spin 0.8s linear infinite;
+  margin-bottom: 18px;
+}
+
+@keyframes sr-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .saved-results-page {
+    padding: 90px 20px 40px;
+  }
+
+  .saved-result-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .saved-result-image-wrapper {
+    width: 100%;
+    height: 180px;
+    margin-right: 0;
+  }
+
+  .saved-result-image {
+    border-radius: 10px;
+  }
+
+  .saved-result-info {
+    width: 100%;
+  }
+
+  .saved-result-name {
+    white-space: normal;
+  }
+
+  .saved-result-actions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,153 @@
+/* ================================
+   SECTION – PURE WHITE BACKGROUND
+================================ */
+.logo-slider-section {
+  width: 100%;
+  padding: 110px 0 70px 0;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ================================
+   SLIDER WRAPPER
+================================ */
+.logo-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ================================
+   SLIDER TRACK – NORMAL SPEED
+================================ */
+.logo-slider-track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: perfectSlide 20s linear infinite;
+  will-change: transform;
+  overflow: visible;
+}
+
+/* ================================
+   LOGO ITEM
+================================ */
+.logo-slider-item {
+  flex: 0 0 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+}
+
+.logo-slider-item::before {
+  content: '';
+  position: absolute;
+  width: 104px;
+  height: 104px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 50%;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo-slider-item img {
+  position: relative;
+  z-index: 2;
+  height: 58px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
+}
+
+/* ================================
+   INFINITE SLIDE ANIMATION
+================================ */
+@keyframes perfectSlide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-25%); }
+}
+
+/* ================================
+   RESPONSIVE – MOBILE
+================================ */
+@media (max-width: 768px) {
+  .logo-slider-section { padding: 70px 0 50px; }
+
+  .logo-slider-track {
+    gap: 32px;
+    animation-duration: 18s;
+  }
+
+  .logo-slider-item {
+    flex: 0 0 110px;
+    height: 110px;
+  }
+
+  .logo-slider-item::before {
+    width: 90px;
+    height: 90px;
+  }
+
+  .logo-slider-item img {
+    height: 50px;
+  }
+}
+/* ================================
+   2-SECOND HOVER DELAY TOOLTIPS (Desktop only)
+================================ */
+@media (hover: hover) and (min-width: 769px) {
+  [data-tooltip] {
+    position: relative;
+  }
+
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1f2937 !important;  /* 🔥 DARK GRAY BG - TEXT VISIBLE */
+    color: #ffffff !important;       /* 🔥 WHITE TEXT */
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10000;  /* 🔥 HIGHER Z-INDEX */
+    transition: opacity 0.25s ease;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  [data-tooltip]::before {
+    content: '';
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    border: 4px solid transparent;
+    border-top-color: #1f2937;  /* 🔥 MATCH DARK BG */
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10001;
+    transition: opacity 0.25s ease;
+  }
+
+  [data-tooltip]:hover::after,
+  [data-tooltip]:hover::before {
+    transition-delay: 2s;
+    opacity: 1;
+  }
+}
+

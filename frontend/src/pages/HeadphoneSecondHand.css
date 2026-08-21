@@ -1,0 +1,260 @@
+/* HeadphoneSecondHand styles — isolated under .headphone-page */
+
+.headphone-page {
+  background: linear-gradient(
+    to right,
+    #212121 0%,
+    #000000eb 30%,
+    #000000 50%,
+    #000000 100%
+  );
+  display: flex;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.headphone-page .details-left {
+  width: 50%;
+  padding: 32px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: 100vh;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.headphone-page .details-left::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.headphone-page .details-right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ============================================
+   PREVIEW & SCREEN SIMULATION
+============================================ */
+
+.headphone-preview {
+  position: relative;
+  width: 750px;
+  max-width: 95vw;
+  margin: 0 auto;
+  overflow: visible;
+  background: transparent;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.headphone-frame {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.headphone-screen {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  z-index: 1;
+}
+
+/* ============================================
+   ANIMATIONS (BOOT & SUMMARY)
+============================================ */
+
+.headphone-boot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.headphone-boot-inner {
+  font-family: 'SF Pro Display', -apple-system, sans-serif;
+  font-size: 1.75rem;
+  color: #ffffff;
+  opacity: 0;
+  animation: hpBootFade 3.5s ease-in-out forwards;
+}
+
+@keyframes hpBootFade {
+  0%   { opacity: 0; transform: scale(0.98); }
+  15%  { opacity: 1; transform: scale(1); }
+  85%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.98); }
+}
+
+.summary-card {
+  width: 90%;
+  background: #f8fafc;
+  color: #111827;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  animation: hpSummaryIn 400ms ease-out forwards;
+}
+
+@keyframes hpSummaryIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   FORM STYLES
+============================================ */
+
+.headphone-page .details-title {
+  margin: 0 0 32px 0;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #f3f4f6;
+  letter-spacing: -0.04em;
+}
+
+.headphone-page .details-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.headphone-page .form-group.full-width {
+  grid-column: span 2;
+}
+
+.headphone-page .form-group label {
+  display: block;
+  margin-bottom: 10px;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.headphone-page .form-group input,
+.headphone-page .form-group select {
+  width: 100%;
+  padding: 14px 18px;
+  background: #0a0a0a;
+  border: 1px solid #333333;
+  border-radius: 14px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.headphone-page .form-group select option {
+  background-color: #111;
+  color: white;
+}
+
+.headphone-page .form-group input:focus,
+.headphone-page .form-group select:focus {
+  border-color: #1046b2;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.15);
+  outline: none;
+}
+
+/* ============================================
+   TRUST & VERIFICATION CHECKBOXES
+   Fixed: uniform 2-col grid, no rogue full-width items
+============================================ */
+
+.headphone-page .seller-checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #222222;
+  border-radius: 20px;
+  /* Remove any auto-placement quirks */
+  grid-auto-flow: row;
+}
+
+/* Every item sits in the normal 2-col flow by default */
+.headphone-page .selectable-item {
+  font-size: 0.85rem;
+  color: #888888;
+  padding: 12px 16px;
+  background: #0a0a0a;
+  border: 1px solid #222222;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  /* Explicitly reset any accidental span */
+  grid-column: span 1;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Only span full width when JS adds .full-width to a specific item */
+.headphone-page .selectable-item.full-width {
+  grid-column: span 2;
+}
+
+.headphone-page .selectable-item.selected {
+  background: rgba(0, 123, 255, 0.15);
+  border-color: #2031e6;
+  color: #ffffff;
+}
+
+.headphone-page .selectable-item:hover:not(.selected) {
+  border-color: #444444;
+  color: #cccccc;
+  background: #111111;
+}
+
+/* ============================================
+   ANALYZE BUTTON
+============================================ */
+
+.headphone-page .analyze-btn {
+  grid-column: span 2;
+  margin-top: 15px;
+  padding: 18px;
+  background: #0059ff;
+  border: none;
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(22, 121, 250, 0.515);
+  text-transform: uppercase;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.headphone-page .analyze-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(9, 39, 173, 0.4);
+}

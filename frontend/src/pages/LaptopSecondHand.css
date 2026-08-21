@@ -1,0 +1,160 @@
+/* LaptopSecondHand styles - isolated from mobile styles */
+.laptop-page .details-left {
+  width: 46%;
+}
+
+.laptop-page .details-right {
+  width: 52%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000; /* solid black background for right panel */
+  padding: 32px; /* ensure spacing around mockup */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.laptop-preview {
+  position: relative;
+  width: 900px; /* reduced width to tighten left/right spacing */
+  max-width: 90vw;
+  margin: 0 auto;
+  overflow: hidden; /* hide transparent gaps */
+  background: transparent; /* let parent panel be black */
+  padding: 4px 0; /* small vertical spacing so frame not cropped */
+  box-sizing: border-box;
+}
+
+.laptop-frame {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 2; /* keep frame under the inner screen */
+  pointer-events: none;
+}
+
+.laptop-screen {
+  position: absolute;
+  /* Adjust these three values */
+  top: 4.5%;
+  left: 8.5%;      /* Increased from 2% to move it right */
+  width: 83%;     /* Decreased from 96% to pull the right side in */
+  
+  height: 88.5%;    /* Slightly reduced to sit better vertically */
+  border-radius: 4px; /* Sharper corners often fit laptop bezels better */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #000 0%, #000 100%);
+  color: #fff;
+  z-index: 11;
+}
+
+.laptop-boot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  padding: 0 12px; /* small horizontal padding to avoid tight edges */
+  box-sizing: border-box;
+}
+
+.laptop-boot-inner {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 2rem;
+  color: #ffffff;
+  opacity: 0;
+  animation: laptopBootFade 3.5s ease-in-out forwards;
+}
+
+@keyframes laptopBootFade {
+  0% { opacity: 0; transform: scale(0.95); }
+  20% { opacity: 1; transform: scale(1); }
+  80% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.95); }
+}
+
+.laptop-lockscreen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #111827 0%, #000000 100%);
+}
+
+.laptop-lockscreen .lock-content {
+  text-align: center;
+}
+
+.lock-time {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 4.2rem; /* Increased size */
+  font-weight: 700;   /* Increased boldness */
+  letter-spacing: -1px;
+}
+
+.lock-status {
+  margin-top: 16px;
+  color: #38bdf8;   /* Brighter "Electric Blue" color */
+  font-weight: 800; /* Extra bold */
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.lock-date {
+  margin-top: 8px;
+  color: #9aa7bf;
+}
+
+
+.laptop-notes {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.notes-card {
+  width: 86%;
+  /* Match the Lockscreen Gradient */
+  background: linear-gradient(135deg, #020617 0%, #0f172a 100%); 
+  /* Change text to white for readability */
+  color: #ffffff; 
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for depth */
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6); /* Deeper shadow for dark mode */
+  transform: scale(0.98);
+  opacity: 0;
+  animation: notesFadeIn 400ms ease-out forwards;
+}
+/* Update these within your notes-card or specific classes */
+
+/* The Labels (Images, Model, Price) */
+.notes-row span:first-child {
+  color: #64748b; /* Muted Slate Gray - recedes into the background */
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* The Values (Uploaded, Phone, ₹1212331) */
+.notes-row span:last-child {
+  color: #38bdf8; /* Vibrant Electric Blue */
+  font-weight: 800; /* Extra Bold per your preference */
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.3); /* Subtle glow */
+}
+
+@keyframes notesFadeIn {
+  to { transform: scale(1); opacity: 1; }
+}
+
+.notes-list { display: flex; flex-direction: column; gap: 8px; }
+.notes-row { display:flex; justify-content:space-between; }
+
+/* keep everything tidy */
+.laptop-idle { width:100%; height:100%; background:#000; }

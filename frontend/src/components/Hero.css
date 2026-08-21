@@ -1,0 +1,182 @@
+/* ============================================
+   HERO SEQUENTIAL ANIMATION (Text → Subheading+Buttons → Particles)
+============================================ */
+@keyframes heroBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes lowerSectionSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes canvasVisible {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #ffffff; /* PURE WHITE */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* 🎨 LAYER 1: Canvas Background - CONTROLLED BY REACT STATE */
+.hero-canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: transparent;
+}
+
+.hero-canvas-container.visible {
+  animation: canvasVisible 1s ease forwards;
+}
+
+.hero-canvas-container canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+/* 📝 LAYER 2: Content */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  text-align: center;
+  color: #1e293b;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.hero-heading {
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.02em;
+  color: #1e293b;
+}
+
+/* 🎬 Subheading + Buttons - Appear TOGETHER after text */
+.hero-lower-section {
+  opacity: 0;
+  transform: translateY(35px);
+}
+
+.hero-lower-section.visible {
+  animation: lowerSectionSlideUp 0.85s cubic-bezier(0.34, 0.03, 0.38, 1.2) forwards;
+}
+
+.hero-subheading {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: #64748b;
+  margin: 0 auto 2.5rem auto;
+  font-weight: 400;
+  max-width: 600px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-btn-primary {
+  background: linear-gradient(135deg, #0f766e, #06b6d4);
+  color: #ffffff;
+  border: none;
+  padding: 1.2rem 3rem;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+}
+
+.hero-btn-secondary {
+  background: transparent;
+  color: #1e293b;
+  border: 2px solid #1e293b;
+  padding: 1.2rem 3rem;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-btn-secondary:hover {
+  background: #1e293b;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 0 1.5rem;
+  }
+  
+  .hero-heading {
+    font-size: clamp(2.5rem, 10vw, 3.5rem);
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .hero-btn-primary, 
+  .hero-btn-secondary {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 0 1rem;
+  }
+  
+}

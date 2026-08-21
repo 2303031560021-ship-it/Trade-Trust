@@ -1,0 +1,244 @@
+/* ============================================
+   NAVBAR BASE STYLES - WHITE VERSION
+   =========================================== */
+
+.navbar {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95); /* ✅ WHITE glass effect */
+  top: 0;
+  left: 0;
+  right: 0;
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  padding: 0;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  gap: 2rem;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #1e293b; /* ✅ DARK text */
+}
+
+.navbar-logo:hover {
+  opacity: 0.85;
+}
+
+.logo-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b; /* ✅ DARK visible text */
+  letter-spacing: -0.01em;
+}
+
+.navbar-center {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navbar-menu li a {
+  color: #64748b; /* ✅ DARK gray - visible on white */
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.navbar-menu li a:hover {
+  color: #1e293b; /* ✅ DARKER on hover */
+}
+
+.navbar-menu li a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px; /* ✅ Thicker underline */
+  background-color: #3b82f6; /* ✅ Blue accent */
+  transition: width 0.3s ease;
+}
+
+.navbar-menu li a:hover::after {
+  width: 100%;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.navbar-login-btn {
+  background: rgba(255, 255, 255, 0.7);
+  color: #374151; /* ✅ DARK text */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.625rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navbar-login-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #1e293b;
+}
+
+.navbar-signup-btn {
+  background: black;
+  color: #ffffff;
+  border: none;
+  padding: 0.625rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease, transform 0.2s ease;
+}
+
+.navbar-signup-btn:hover {
+  background: black;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1e293b; /* ✅ DARK text */
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   =========================================== */
+
+@media (max-width: 768px) {
+  .navbar-container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+  }
+  
+  .navbar-center {
+    order: 3;
+    width: 100%;
+  }
+  
+  .navbar-menu {
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  .navbar-menu li a {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-container {
+    grid-template-columns: 1fr auto;
+    padding: 1rem;
+  }
+  
+  .navbar-center {
+    display: none;
+  }
+  
+  .navbar-right {
+    justify-content: flex-end;
+  }
+
+  .navbar-login-btn, 
+  .navbar-signup-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+/* ============================================
+   DARK NAVBAR – FOR NON-HOME PAGES ONLY
+   =========================================== */
+
+.navbar-dark {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(12px);
+}
+
+/* Logo text */
+.navbar-dark .logo-text {
+  color: #ffffff;
+}
+
+/* Menu links */
+.navbar-dark .navbar-menu li a {
+  color: #d1d5db;
+}
+
+.navbar-dark .navbar-menu li a:hover {
+  color: #ffffff;
+}
+
+/* Underline stays blue */
+.navbar-dark .navbar-menu li a::after {
+  background-color: #3b82f6;
+}
+
+/* Login button */
+.navbar-dark .navbar-login-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-dark .navbar-login-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Signup button stays strong */
+.navbar-dark .navbar-signup-btn {
+  background: #ffffff;
+  color: #000000;
+}
+
+.navbar-dark .navbar-signup-btn:hover {
+  background: #e5e7eb;
+}
+
+/* User name */
+.navbar-dark .user-name {
+  color: #ffffff;
+}

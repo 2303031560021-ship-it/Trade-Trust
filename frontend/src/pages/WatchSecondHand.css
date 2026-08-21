@@ -1,0 +1,369 @@
+/* WatchSecondHand styles - isolated from mobile, laptop, tablet, and tv styles */
+
+.watch-page .details-left {
+  width: 50%;
+}
+
+.watch-page .details-right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  padding: 32px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.watch-preview {
+  position: relative;
+  width: 320px;
+  max-width: 90vw;
+  margin: 0 auto;
+  overflow: hidden;
+  background: transparent;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.watch-frame {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.watch-screen {
+  position: absolute;
+  top: 24%;
+  left: 5%;
+  width: 85%;
+  height: 53%;
+  border-radius: 72px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  z-index: 3;
+}
+/* Idle State */
+.watch-idle {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+}
+
+/* Boot Screen */
+.watch-boot {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.watch-boot-inner {
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 600;
+}
+
+@keyframes watchBootFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* Lockscreen */
+.watch-lockscreen {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.lock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Analog Clock */
+.analog-clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+}
+
+.clock-face {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 3px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Hour markers */
+.hour-marker {
+  position: absolute;
+  width: 2px;
+  height: 12px;
+  background: #ffffff;
+  top: 8px;
+  left: 50%;
+  transform-origin: 0 74px;
+  margin-left: -1px;
+}
+
+/* Clock hands */
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  background: #ffffff;
+}
+
+.hour-hand {
+  width: 4px;
+  height: 40px;
+  margin-left: -2px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.3s ease-out;
+}
+
+.minute-hand {
+  width: 3px;
+  height: 50px;
+  margin-left: -1.5px;
+  background: #ffffff;
+  border-radius: 1.5px;
+  transition: transform 0.3s ease-out;
+}
+
+.second-hand {
+  width: 2px;
+  height: 55px;
+  margin-left: -1px;
+  background: #ff3b3b;
+  border-radius: 1px;
+  transition: transform 0.05s linear;
+}
+
+.clock-center {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.lock-date {
+  font-size: 12px;
+  color: #aaaaaa;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Summary Screen */
+.watch-summary {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: watchSummaryIn 0.4s ease-out forwards;
+}
+
+@keyframes watchSummaryIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.summary-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.summary-condition {
+  font-size: 12px;
+  color: #aaaaaa;
+}
+
+.summary-docs {
+  font-size: 11px;
+  color: #888888;
+}
+
+/* Form Styles for Watch */
+.watch-page .details-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.watch-page .form-group.full-width {
+  grid-column: span 2;
+}
+
+.watch-page .form-group label {
+  display: block;
+  margin-bottom: 10px;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* PREMIUM INPUTS */
+.watch-page .form-group input,
+.watch-page .form-group select {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+/* FIX: Ensure dropdown options are readable */
+.watch-page .form-group select option {
+  background-color: #111;
+  color: white;
+}
+
+.watch-page .form-group input:focus,
+.watch-page .form-group select:focus {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+  outline: none;
+}
+
+/* CUSTOM FILE UPLOAD */
+.watch-page .form-group input[type="file"] {
+  padding: 10px;
+  font-size: 0.8rem;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.watch-page .form-group input[type="file"]::file-selector-button {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* CHECKBOX CONTAINER */
+.watch-page .seller-checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+}
+
+.watch-page .selectable-item {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.watch-page .selectable-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.watch-page .selectable-item.selected {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+  color: #ffffff;
+  text-decoration: line-through;
+}
+
+/* THE BUTTON WITH SHIMMER */
+.watch-page .analyze-btn {
+  grid-column: span 2;
+  margin-top: 15px;
+  padding: 18px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+}
+
+.watch-page .analyze-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.4);
+}
+
+
+.watch-page .selectable-item:last-child {
+  grid-column: span 2;
+}

@@ -1,0 +1,563 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+/* avoid globally locking the viewport; only hide overflow inside the page wrapper */
+
+/* html/body reset now lives within the .details-page container below */
+/* GLOBAL WRAPPER */
+.details-page {
+  /* covers entire viewport and behaves like isolated app screen */
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(90deg, #000000e6 0%, #0a0a0a 100%);
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;   /* hide vertical scrollbar just for the details page */
+}
+
+/* LEFT SIDE - THE DASHBOARD FEEL */
+.details-left {
+  width: 45%;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.details-title {
+  font-size: 3.5rem;
+  margin-bottom: 40px;
+  font-weight: 800;
+  letter-spacing: -1px;
+
+  background: linear-gradient(
+    120deg,
+    #3b82f6,
+    #6366f1,
+    #8b5cf6,
+    #06b6d4,
+    #3b82f6
+  );
+
+  background-size: 300% 300%;
+  animation: auroraText 12s ease-in-out infinite;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.details-title::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -30%;
+  width: 160%;
+  height: 200%;
+  z-index: -1;
+
+ background: linear-gradient(
+  120deg,
+  rgba(5, 10, 20, 0.35),
+  rgba(15, 25, 60, 0.25),
+  rgba(0, 0, 0, 0.4),
+  rgba(5, 10, 20, 0.35)
+);
+
+  background-size: 300% 300%;
+  animation: auroraMove 12s ease-in-out infinite alternate;
+  filter: blur(60px);
+}
+@keyframes auroraText {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.details-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* PREMIUM INPUTS */
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.05); /* Increased slightly for visibility */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+/* FIX: Ensure dropdown options are readable (Dark theme fix) */
+.form-group select option {
+  background-color: #111;
+  color: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+  outline: none;
+}
+
+/* CUSTOM FILE UPLOAD */
+.form-group input[type="file"] {
+  padding: 10px;
+  font-size: 0.8rem;
+  color: #64748b;
+  cursor: pointer;
+}
+.form-group input[type="file"]::file-selector-button {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* CHECKBOX CONTAINER */
+.seller-checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+}
+
+.selectable-item {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.selectable-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.selectable-item.selected {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+  color: #ffffff;
+  text-decoration: line-through;
+}
+.selectable-item:last-child {
+  grid-column: span 2;
+}
+
+/* THE BUTTON WITH SHIMMER */
+.analyze-btn {
+  grid-column: span 2;
+  margin-top: 15px;
+  padding: 18px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+}
+
+.analyze-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.4);
+}
+
+/* RIGHT SIDE */
+.details-right {
+  width: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone-preview {
+  position: relative;
+  width: 380px;
+  animation: floatPhone 6s ease-in-out infinite;
+}
+
+@keyframes floatPhone {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+.phone-preview img {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  display: block;
+}
+
+/* PHONE SCREEN */
+.phone-screen {
+  position: absolute;
+  top: 0.5%;
+  left: 5.5%;
+  width: 90%;
+  height: 98%;
+  border-radius: 48px;
+  overflow: hidden;
+  background: #000;
+  z-index: 20;
+}
+
+.phone-idle {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.phone-boot {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 30;
+}
+
+.boot-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  object-position: center;
+  animation: bootFade 3.5s ease-in-out forwards;
+}
+
+/* Slightly larger Samsung logo when shown during boot */
+.boot-logo--samsung {
+  width: 140px;
+  height: 140px;
+}
+
+@keyframes bootFade {
+  0% { opacity: 0; transform: scale(0.8); }
+  15% { opacity: 1; transform: scale(1); }
+  85% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.8); }
+}
+
+/* LAYER WRAPPER FOR SMOOTH SWIPE UNLOCK */
+.phone-layer-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.lock-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(0%);
+}
+
+.lock-layer.slide-up {
+  transform: translateY(-100%);
+}
+
+.notes-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.phone-lockscreen {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+}
+
+.lockscreen-content {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.lockscreen-time {
+  font-size: 3rem;
+  color: #ffffff;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.lockscreen-date {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+
+.lockscreen-security {
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 24px;
+}
+
+.phone-overview {
+  width: 100%;
+  height: 100%;
+  background: #0f0f0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: stageFadeIn 0.5s ease-out forwards;
+  padding: 24px;
+}
+
+.overview-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 20px;
+  width: 100%;
+}
+
+.overview-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem;
+}
+
+.overview-row:last-child {
+  border-bottom: none;
+}
+
+.overview-label {
+  color: #64748b;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.overview-value {
+  color: #ffffff;
+  font-weight: 600;
+  text-align: right;
+  max-width: 50%;
+  word-break: break-word;
+}
+
+.phone-notes {
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: stageFadeIn 0.5s ease-out forwards;
+  padding: 20px;
+}
+
+.notes-card {
+  background: white;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.notes-card::-webkit-scrollbar {
+  width: 4px;
+}
+
+.notes-card::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.notes-card::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 10px;
+}
+
+.notes-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.notes-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.notes-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #333;
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.notes-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.notes-key {
+  font-weight: 600;
+  color: #666;
+  min-width: 65px;
+}
+
+.notes-val {
+  color: #333;
+  text-align: right;
+  flex: 1;
+  padding-left: 10px;
+  word-break: break-word;
+}
+
+@keyframes stageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* LOCK SCREEN */
+
+.phone-lockscreen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #0f172a 0%, #1e293b 60%, #0f172a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: stageFadeIn 0.4s ease-out forwards;
+  position: relative;
+  color: white;
+}
+
+/* subtle glow effect */
+.phone-lockscreen::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, transparent 70%);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.lock-content {
+  text-align: center;
+  z-index: 2;
+}
+
+.lock-time {
+  font-size: 3.2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.lock-date {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+.lock-status {
+  margin-top: 25px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #3b82f6;
+}

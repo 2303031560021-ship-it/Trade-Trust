@@ -1,0 +1,187 @@
+.how-it-works {
+  background: #ffffff;
+  padding: 6rem 2rem 2rem;
+}
+
+.how-it-works-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.how-it-works-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 420px;
+}
+
+.how-it-works-title {
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: -341px -17px 0.2rem -5px;
+  letter-spacing: -0.02em;
+  color: #1e293b;
+}
+
+.steps-wrapper {
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: relative;
+  top: -8rem;
+}
+
+.step-row {
+  display: grid;
+  grid-template-columns: 520px 1fr;
+  gap: 18rem; 
+  align-items: center;
+}
+
+.step-visual {
+  width: 520px;
+  height: 520px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.particle-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.step-description {
+  font-size: 1.05rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .step-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+}
+
+.step-content {
+  position: relative;
+  padding-bottom: 6rem; /* space for connector */
+}
+.step-connector-track {
+  position: absolute;
+  left: 0;
+  top: calc(100% - 4.5rem);
+
+  width: 2.5px;
+  height: 450px;
+  background: rgba(59, 130, 246, 0.12);
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.step-connector-active {
+  width: 100%;
+  height: 0%;
+
+
+  /* Dark, premium gradient */
+  background: linear-gradient(
+    180deg,
+    #1e3a8a 0%,   /* deep indigo */
+    #1d4ed8 40%,  /* strong blue */
+    #2563eb 70%,  /* brand blue */
+    #60a5fa 100%  /* soft highlight */
+  );
+
+  /* Controlled, elegant glow */
+  box-shadow:
+    0 0 6px rgba(37, 99, 235, 0.45),
+    0 0 14px rgba(30, 64, 175, 0.35);
+
+  border-radius: 999px;
+  transition: height 0.25s ease-out;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.typing-cursor {
+  display: inline-block;
+  background: #3b82f6;
+  width: 2px;
+  height: 1.4em;
+  vertical-align: bottom;
+  margin-left: 1px;
+  animation: blink 0.7s infinite;
+}
+
+.step-title, .step-description {
+  overflow: hidden;
+}
+.watermark-text {
+  /* 🔥 Antigravity-style grotesk stack */
+  font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+
+  font-size: clamp(5.2rem, 21.5vw, 24.5rem);
+
+  /* 🔥 Heavier, confident weight */
+  font-weight: 500;
+
+  /* 🔥 Slightly less tight than before (Antigravity style) */
+  letter-spacing: -0.045em;
+
+  line-height: 0.95;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  text-align: center;
+  user-select: none;
+
+  /* 🔥 Antigravity-like dark neutral (NOT pure black) */
+  background: linear-gradient(
+    180deg,
+    #0b0f14,
+    #0b0f14
+  );
+
+  background-size: 100% 100%;
+  animation: none; /* Antigravity text is static */
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* 🔥 Correct darkness level */
+  opacity: 0.95;
+
+  filter: none;
+  transform: translateY(-15%);
+  transition: opacity 1s ease-in-out;
+}
+
+/* ================================
+   MOBILE
+================================ */
+@media (max-width: 768px) {
+  .watermark-text {
+    font-size: clamp(3rem, 18vw, 7rem);
+    transform: translateY(-25%);
+    opacity: 0.38; /* slightly stronger on mobile */
+  }
+}
