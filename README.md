@@ -4,11 +4,11 @@
 
 TradeTrust is an AI-powered web application designed to help users evaluate second-hand electronic products before making a purchase.
 
-It analyzes the **physical condition of a product**, evaluates **seller/product trust signals**, estimates a **fair value**, and generates a final **BUY / HOLD / AVOID** recommendation.
+It analyzes the physical condition of a product, evaluates seller and product trust signals, estimates a fair value, and generates a final BUY / HOLD / AVOID recommendation.
 
 ## 🚀 Live Demo
 
-**[Open TradeTrust](https://trade-trust-jet.vercel.app/)**
+👉 https://trade-trust-jet.vercel.app/
 
 ---
 
@@ -21,53 +21,31 @@ Buying second-hand electronics can be risky because users often have difficulty 
 - Whether the seller and product can be trusted
 - Whether the deal is actually worth buying
 
-TradeTrust combines AI-based image analysis with product and seller information to provide a simple, understandable deal recommendation.
+TradeTrust combines AI-based image analysis with product and seller information to provide a simple and understandable deal recommendation.
 
 ---
 
 ## ✨ Features
 
-- 🔍 **AI Damage Detection**
-  - Detects major damage, minor damage, and no damage from a product image.
-  - Uses an EfficientNet-B3 based deep learning model.
-  - Model inference runs directly in the browser using ONNX Runtime Web.
+- 🔍 AI-based product damage detection
+- 💰 Fair value estimation
+- 🛡️ Product and seller trust scoring
+- 🧠 BUY / HOLD / AVOID recommendation
+- 📊 Final deal score
+- 💾 Save and retrieve previous results
+- 👤 User authentication with Clerk
+- 📱 Multiple second-hand electronics categories
+- ⚡ Browser-based AI inference using ONNX Runtime Web
 
-- 💰 **Fair Value Estimation**
-  - Estimates an adjusted fair value based on product information and detected damage.
+### Supported Categories
 
-- 🛡️ **Trust Score**
-  - Evaluates trust signals such as:
-    - Warranty availability
-    - Documents
-    - Seller ID proof
-    - Original box
-    - Accessories
-    - Seller rating
-
-- 🧠 **Smart Deal Recommendation**
-  - Generates one of three decisions:
-    - `BUY`
-    - `HOLD`
-    - `AVOID`
-
-- 📊 **Final Deal Score**
-  - Combines physical product condition and trust score to calculate an overall deal score.
-
-- 💾 **Save Results**
-  - Users can save their analyzed deals.
-  - Saved results are stored in MongoDB Atlas.
-
-- 👤 **User Authentication**
-  - Uses Clerk for user authentication.
-
-- 📱 **Multiple Product Categories**
-  - Mobile
-  - Laptop
-  - Tablet
-  - TV
-  - Smartwatch
-  - Washing Machine
-  - Headphones
+- Mobile
+- Laptop
+- Tablet
+- TV
+- Smartwatch
+- Washing Machine
+- Headphones
 
 ---
 
@@ -75,11 +53,9 @@ TradeTrust combines AI-based image analysis with product and seller information 
 
 ### Damage Detection
 
-The damage detection model is based on:
+The damage detection model is based on EfficientNet-B3.
 
-**EfficientNet-B3**
-
-The model classifies product images into:
+It classifies product images into three categories:
 
 | Class | Meaning |
 |---|---|
@@ -87,34 +63,98 @@ The model classifies product images into:
 | Minor Damage | Minor visible damage |
 | No Damage | No significant visible damage |
 
-The model was converted to **ONNX** so that inference can run directly inside the user's browser.
+The trained PyTorch model was converted to ONNX so that damage inference can run directly inside the user's browser using ONNX Runtime Web.
 
 ### Why ONNX?
 
 Originally, the ML model was intended to run as a separate Python ML service.
 
-The final architecture uses ONNX Runtime Web instead.
+The final architecture uses ONNX Runtime Web for damage detection.
 
-This provides:
+Benefits include:
 
 - Browser-side inference
-- No image upload required for damage inference
-- Lower backend ML workload
+- Reduced backend ML workload
+- No need to send the product image to the ML server for damage detection
+- Easier frontend deployment
 - Faster interaction after the model is loaded
-- Easier deployment of the frontend
 
 ---
 
 ## 🧮 Deal Evaluation
 
-TradeTrust uses three major components:
+TradeTrust evaluates a deal using three major components.
 
-### 1. Damage Score
+### 1. Damage Penalty
 
-The damage probabilities are converted into a damage penalty.
+The damage probabilities are converted into a damage penalty:
+
+Damage Penalty =
+
+Major Damage Probability × 0.40
+
++
+
+Minor Damage Probability × 0.15
+
+### 2. Trust Score
+
+The trust score evaluates signals such as:
+
+- Warranty availability
+- Documents provided
+- Seller ID proof
+- Original box
+- Accessories
+- Seller rating
+
+### 3. Final Deal Score
+
+Physical condition is given higher importance than trust.
+
+Final Score =
+
+Damage Health × 70%
+
++
+
+Trust Score × 30%
+
+The final recommendation is:
+
+- Final Score >= 65 → BUY
+- Final Score 40–64 → HOLD
+- Final Score < 40 → AVOID
+
+---
+
+## 🏗️ System Architecture
 
 ```text
-Damage Penalty =
-Major Damage Probability × 0.40
-+
-Minor Damage Probability × 0.15
+                    ┌──────────────────────┐
+                    │        USER          │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │       VERCEL         │
+                    │   React Frontend     │
+                    └──────────┬───────────┘
+                               │
+                 ┌─────────────┴─────────────┐
+                 │                           │
+                 ▼                           ▼
+       ┌──────────────────┐       ┌──────────────────┐
+       │ ONNX Runtime Web │       │  RENDER BACKEND  │
+       │                  │       │  Node + Express  │
+       │ Damage Detection │       │                  │
+       └──────────────────┘       │ Trust / Verdict  │
+                                  │ Pricing / Results │
+                                  └────────┬─────────┘
+                                           │
+                                           ▼
+                                  ┌──────────────────┐
+                                  │  MONGODB ATLAS   │
+                                  │                  │
+                                  │ Saved Results    │
+                                  └──────────────────┘
