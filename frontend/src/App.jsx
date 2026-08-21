@@ -19,9 +19,11 @@ import { Toaster } from "react-hot-toast";
 import SavedResults from "./pages/SavedResults";
 import './App.css';
 
+
 function App() {
   return (
     <Router>
+       
       <div className="app-container">
 
         <Navbar />

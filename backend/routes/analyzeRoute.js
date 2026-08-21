@@ -1,18 +1,10 @@
 import express from "express";
-import multer from "multer";
-import FormData from "form-data";
-import fs from "fs";
 import calculateTrustScore from "../utils/trustScore.js";
 import generateExplanation from "../utils/explanation.js";
-import {
-  ensureMlService,
-  isMlServiceUnavailableError,
-  mlServiceClient,
-  ML_SERVICE_URL,
-} from "../services/mlService.js";
+
 
 const router = express.Router();
-const upload = multer({ dest: "uploads/" });
+
 
 // ============================================================
 // VERDICT ENGINE
@@ -58,33 +50,23 @@ function computeVerdict(damagePenalty, trustScore) {
   return { decision, confidence, finalScore: Math.round(finalScore) };
 }
 
-router.post("/", upload.single("image"), async (req, res) => {
-  let filePath;
-
+router.post("/", async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: "Image is required" });
-    }
-
-    filePath = req.file.path;
 
     // ======================================================
     // STEP 1 — DAMAGE DETECTION (runs for ALL categories)
     // ======================================================
-    await ensureMlService();
+  const damagePenalty = Number(req.body.damage_penalty) || 0;
+const majorProbability = Number(req.body.major_probability) || 0;
+const minorProbability = Number(req.body.minor_probability) || 0;
+const noDamageProbability = Number(req.body.no_damage_probability) || 0;
 
-    const formData = new FormData();
-    formData.append("file", fs.createReadStream(filePath));
-
-    const damageResponse = await mlServiceClient.post(
-      "/predict-damage",
-      formData,
-      { headers: formData.getHeaders() }
-    );
-
-    const damagePenalty = Number(damageResponse.data.damage_penalty) || 0;
-    const majorProbability = Number(damageResponse.data.major_probability) || 0;
-    const minorProbability = Number(damageResponse.data.minor_probability) || 0;
+const damageData = {
+  damage_penalty: damagePenalty,
+  major_probability: majorProbability,
+  minor_probability: minorProbability,
+  no_damage_probability: noDamageProbability,
+};
 
     const {
       askingPrice = 0,
@@ -165,7 +147,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     });
 
     return res.json({
-      damage: damageResponse.data,
+      damage: damageData,
       pricing: {
         asking_price: askingPriceNum,
         adjusted_price: adjustedPrice,
@@ -179,20 +161,11 @@ router.post("/", upload.single("image"), async (req, res) => {
     });
 
   } catch (error) {
-    if (isMlServiceUnavailableError(error)) {
-      console.error(`ML service unavailable at ${ML_SERVICE_URL}:`, error.message);
-      return res.status(503).json({
-        error: "ML prediction service is unavailable. Please try again in a few seconds.",
-      });
-    }
+  
 
     console.error("FULL ERROR:", error.response?.data || error.message);
     res.status(500).json({ error: "Internal Server Error" });
-  } finally {
-    if (filePath && fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
-  }
+  } 
 });
 
 export default router;
