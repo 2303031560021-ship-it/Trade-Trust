@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import analyzeRoute from "./routes/analyzeRoute.js";
 import { MongoClient } from "mongodb";
+
+dotenv.config();
 
 const app = express();
 
@@ -14,7 +17,7 @@ app.use("/analyze", analyzeRoute);
 
 /* ---------- MongoDB Connection ---------- */
 
-const uri = "mongodb://127.0.0.1:27017";
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 
 let db;
@@ -96,7 +99,7 @@ app.get("/api/saved-results/:userId", async (req, res) => {
 
 /* ---------- Server ---------- */
 
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 
 // ✅ IMPORTANT FIX: Wait for DB before starting server
 (async () => {
