@@ -8,16 +8,60 @@ import timm
 import joblib
 import numpy as np
 import io
+import os
+from huggingface_hub import hf_hub_download
 
 app = FastAPI()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# =========================
+# HUGGING FACE MODEL FILES
+# =========================
+
+HF_REPO = "rishipatel0/tradetrust-ml"
+HF_TOKEN = os.getenv("HF_TOKEN")
+
+damage_model_path = hf_hub_download(
+    repo_id=HF_REPO,
+    filename="damage_model_best.pth",
+    token=HF_TOKEN
+)
+
+tabular_model_path = hf_hub_download(
+    repo_id=HF_REPO,
+    filename="smartbuy_model.pkl",
+    token=HF_TOKEN
+)
+
+label_encoders_path = hf_hub_download(
+    repo_id=HF_REPO,
+    filename="label_encoders.pkl",
+    token=HF_TOKEN
+)
+
+target_encoder_path = hf_hub_download(
+    repo_id=HF_REPO,
+    filename="target_encoder.pkl",
+    token=HF_TOKEN
+)
 
 # =========================
 # DAMAGE MODEL
 # =========================
-damage_model = timm.create_model("efficientnet_b3", pretrained=False)
-damage_model.classifier = nn.Linear(damage_model.classifier.in_features, 3)
-damage_model.load_state_dict(torch.load("damage_model_best.pth", map_location=device))
+
+damage_model = timm.create_model(
+    "efficientnet_b3",
+    pretrained=False
+)
+
+damage_model.classifier = nn.Linear(
+    damage_model.classifier.in_features,
+    3
+)
+
+damage_model.load_state_dict(
+    torch.load(damage_model_path, map_location=device)
+)
+
 damage_model.to(device)
 damage_model.eval()
 
@@ -34,9 +78,10 @@ damage_transform = transforms.Compose([
 # =========================
 # TABULAR MODEL
 # =========================
-tabular_model = joblib.load("smartbuy_model.pkl")
-label_encoders = joblib.load("label_encoders.pkl")
-target_encoder = joblib.load("target_encoder.pkl")
+
+tabular_model = joblib.load(tabular_model_path)
+label_encoders = joblib.load(label_encoders_path)
+target_encoder = joblib.load(target_encoder_path)
 
 # =========================
 # SAFE ENCODER FUNCTION
