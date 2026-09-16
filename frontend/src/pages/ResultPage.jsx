@@ -43,36 +43,47 @@ const imagePreview =
     alert("Please login to save results");
     return;
   }
- console.log("Image preview:", imagePreview);
- const saveData = {
-  userId: user.id,
-  result,
-  formInputs,
-  imagePreview: imagePreview,
-  createdAt: new Date()
-};
+
+  const saveData = {
+    userId: user.id,
+    result,
+    formInputs,
+    imagePreview,
+    createdAt: new Date()
+  };
 
   try {
-    const response = await fetch("https://trade-trust.onrender.com/api/save-result", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(saveData)
-    });
+    const response = await fetch(
+      "https://trade-trust.onrender.com/api/save-result",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(saveData)
+      }
+    );
 
-    const data = await response.json();
+    const responseText = await response.text();
 
-    console.log("Saved in DB:", data);
+    console.log("SAVE STATUS:", response.status);
+    console.log("SAVE RESPONSE:", responseText);
+
+    if (!response.ok) {
+      throw new Error(`Save failed: ${response.status} - ${responseText}`);
+    }
+
+    const data = JSON.parse(responseText);
+
     if (data.success) {
-  toast.success("Result saved successfully!");
-}
+      toast.success("Result saved successfully!");
+    }
 
   } catch (error) {
-    console.error("Save failed:", error);
+    console.error("SAVE RESULT ERROR:", error);
+    toast.error("Failed to save result");
   }
 };
-
   const {
     decision,
     confidence,
